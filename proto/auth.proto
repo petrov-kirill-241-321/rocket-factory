@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+service AuthService {
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
+  string email = 3;
+}

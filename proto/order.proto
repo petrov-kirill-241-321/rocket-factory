@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+import "google/protobuf/timestamp.proto";
+import "proto/common.proto";
+
+service OrderService {
+  rpc GetOrder(GetOrderRequest) returns (Order);
+  rpc ListUserOrders(ListUserOrdersRequest) returns (ListUserOrdersResponse);
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+}
+
+message Order {
+  string id = 1;
+  string user_id = 2;
+  OrderStatus status = 3;
+  repeated OrderItem items = 4;
+  string total_amount = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message GetOrderRequest {
+  string order_id = 1;
+  string user_id = 2;
+}
+
+message ListUserOrdersRequest {
+  string user_id = 1;
+  int32 limit = 2;
+  int32 offset = 3;
+}
+
+message ListUserOrdersResponse {
+  repeated Order orders = 1;
+}
+
+message UpdateOrderStatusRequest {
+  string order_id = 1;
+  OrderStatus status = 2;
+  string source_event_id = 3;
+}
+
+message UpdateOrderStatusResponse {
+  Order order = 1;
+}

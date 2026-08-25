@@ -1,0 +1,14 @@
+.env
+.idea/
+.vscode/
+*.md
+
+bin/
+coverage.out
+*.test
+*.exe
+
+tmp/
+dist/
+
+*.log

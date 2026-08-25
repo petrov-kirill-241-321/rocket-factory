@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+import "google/protobuf/timestamp.proto";
+import "proto/common.proto";
+
+service ProductionService {
+  rpc GetProductionTask(GetProductionTaskRequest) returns (ProductionTask);
+}
+
+message GetProductionTaskRequest {
+  string task_id = 1;
+}
+
+message ProductionTask {
+  string id = 1;
+  string order_id = 2;
+  string user_id = 3;
+  ProductionStatus status = 4;
+  google.protobuf.Timestamp started_at = 5;
+  google.protobuf.Timestamp completed_at = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}

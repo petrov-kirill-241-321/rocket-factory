@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+import "google/protobuf/timestamp.proto";
+import "proto/common.proto";
+
+service PaymentService {
+  rpc CreatePayment(CreatePaymentRequest) returns (Payment);
+  rpc GetPayment(GetPaymentRequest) returns (Payment);
+}
+
+message CreatePaymentRequest {
+  string order_id = 1;
+  string user_id = 2;
+  string amount = 3;
+  string idempotency_key = 4;
+  PaymentSimulation simulation = 5;
+}
+
+message GetPaymentRequest {
+  string payment_id = 1;
+}
+
+message Payment {
+  string id = 1;
+  string order_id = 2;
+  string user_id = 3;
+  string amount = 4;
+  PaymentStatus status = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+enum PaymentSimulation {
+  PAYMENT_SIMULATION_UNSPECIFIED = 0;
+  PAYMENT_SIMULATION_SUCCESS = 1;
+  PAYMENT_SIMULATION_FAILURE = 2;
+}

@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+import "proto/common.proto";
+
+service InventoryService {
+  rpc CheckAvailability(CheckAvailabilityRequest) returns (CheckAvailabilityResponse);
+  rpc ReserveItems(ReserveItemsRequest) returns (ReserveItemsResponse);
+}
+
+message CheckAvailabilityRequest {
+  repeated OrderItem items = 1;
+}
+
+message CheckAvailabilityResponse {
+  bool available = 1;
+  repeated InventoryAvailability items = 2;
+  string reason = 3;
+}
+
+message InventoryAvailability {
+  string sku = 1;
+  int32 requested = 2;
+  int32 available = 3;
+  bool enough = 4;
+}
+
+message ReserveItemsRequest {
+  string order_id = 1;
+  string user_id = 2;
+  repeated OrderItem items = 3;
+  string idempotency_key = 4;
+}
+
+message ReserveItemsResponse {
+  string reservation_id = 1;
+  ReservationStatus status = 2;
+  string reason = 3;
+}

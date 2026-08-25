@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package rocket.factory.v1;
+
+option go_package = "github.com/petrov-kirill-241-321/rocket-factory/proto;rocketpb";
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message OrderItem {
+  string sku = 1;
+  string name = 2;
+  int32 quantity = 3;
+  string unit_price = 4;
+}
+
+message DomainEvent {
+  string event_id = 1;
+  string event_type = 2;
+  string order_id = 3;
+  string user_id = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Struct payload = 6;
+}
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_CREATED = 1;
+  ORDER_STATUS_INVENTORY_RESERVED = 2;
+  ORDER_STATUS_INVENTORY_FAILED = 3;
+  ORDER_STATUS_PAYMENT_PENDING = 4;
+  ORDER_STATUS_PAID = 5;
+  ORDER_STATUS_PRODUCTION_STARTED = 6;
+  ORDER_STATUS_COMPLETED = 7;
+  ORDER_STATUS_FAILED = 8;
+}
+
+enum ReservationStatus {
+  RESERVATION_STATUS_UNSPECIFIED = 0;
+  RESERVATION_STATUS_RESERVED = 1;
+  RESERVATION_STATUS_FAILED = 2;
+}
+
+enum PaymentStatus {
+  PAYMENT_STATUS_UNSPECIFIED = 0;
+  PAYMENT_STATUS_PENDING = 1;
+  PAYMENT_STATUS_SUCCEEDED = 2;
+  PAYMENT_STATUS_FAILED = 3;
+}
+
+enum ProductionStatus {
+  PRODUCTION_STATUS_UNSPECIFIED = 0;
+  PRODUCTION_STATUS_STARTED = 1;
+  PRODUCTION_STATUS_COMPLETED = 2;
+  PRODUCTION_STATUS_FAILED = 3;
+}
